@@ -22,11 +22,11 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger:xunit /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\coverlet\coverage.xml
+      run: dotnet test --no-build --verbosity normal --logger:xunit /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
     - uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        files: .\coverlet\coverage.xml
+        files: .\Tests\TestResults\coverage.cobertura.xml
         flags: unittests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
