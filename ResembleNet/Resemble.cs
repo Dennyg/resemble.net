@@ -32,6 +32,11 @@ namespace ResembleNet
         /// <param name="actualImage">Image to compare.</param>
         public Resemble(Image actualImage)
         {
+            if (actualImage == null)
+            {
+                throw new ArgumentNullException(nameof(actualImage),"Actual image can not be null.");
+            }
+            
             _actualImage = new Bitmap(actualImage);
             _tolerance = ToleranceSettings.Default;
             _settings = new ComparisonSettings
@@ -49,6 +54,11 @@ namespace ResembleNet
         /// <returns>An instance of <see cref="Resemble"/>.</returns>
         public Resemble CompareTo(Image baselineImage)
         {
+            if (baselineImage == null)
+            {
+                throw new ArgumentNullException(nameof(baselineImage),"Baseline image can not be null.");
+            }
+            
             _baselineImage = new Bitmap(baselineImage);
             return this;
         }
@@ -300,6 +310,11 @@ namespace ResembleNet
         /// <returns>An instance of <see cref="ComparisonResult"/> that results of comparison.</returns>
         public ComparisonResult Compare()
         {
+            if (_baselineImage == null)
+            {
+                throw new ArgumentNullException(nameof(_baselineImage), "Baseline image is required. Use CompareTo(...) method.");
+            }
+            
             if (_scaleToSameSize)
             {
                 _actualImage = _resizer.Resize(_actualImage, _baselineImage.Width, _baselineImage.Height);

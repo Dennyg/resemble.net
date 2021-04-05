@@ -90,11 +90,29 @@ namespace Tests
         [Theory]
         [InlineData(0.01)]
         [InlineData(1.00001)]
-        public void SetTransoarencyShouldThrowException(float transparency)
+        public void SetTransparencyShouldThrowException(float transparency)
         {
             var result = new Resemble(new Bitmap(1, 1));
 
             Assert.Throws<ArgumentOutOfRangeException>(() => result.WithResultTransparency(transparency));
+        }
+
+        [Fact]
+        public void ExceptionShouldBeThrown_WhenActualImageIsNotSpecified()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Resemble(null));
+        }
+
+        [Fact]
+        public void ExceptionShouldBeThrown_WhenBaselineImageWasSetAsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Resemble(new Bitmap(1, 1)).CompareTo(null));
+        }
+
+        [Fact]
+        public void ExceptionShouldBeThrown_WhenBaselineImageWasNotSet()
+        {
+            Assert.Throws<ArgumentNullException>(() => new Resemble(new Bitmap(1, 1)).Compare());
         }
     }
 }
