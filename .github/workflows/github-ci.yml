@@ -32,26 +32,4 @@ jobs:
       with:
         name: test-results
         path: Tests/TestResults
-      # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
-
-  publish-nuget:
-    needs: build
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-
-    - name: Build solution and generate NuGet package
-      run: dotnet pack -c Release
-
-    - name: Push generated package to GitHub registry
-      run: dotnet nuget push .\**\*.nupkg -k ${{secrets.NUGET_KEY}}
