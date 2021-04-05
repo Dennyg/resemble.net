@@ -6,7 +6,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  publish-nuget:
 
     runs-on: windows-latest
 
