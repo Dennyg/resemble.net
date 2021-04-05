@@ -4,7 +4,7 @@
     <TargetFrameworks>net5.0;netstandard2.0;net461</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <RootNamespace>ResembleNet</RootNamespace>
-    <Version>0.0.1-alpha1</Version>
+    <Version>0.0.1-alpha2</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Dennyg/resemble.net.git</RepositoryUrl>
   </PropertyGroup>
