@@ -1,4 +1,4 @@
-name: .NET
+name: Build
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -22,7 +22,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger:xunit
+      run: dotnet test --no-build --verbosity normal --logger:xunit /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=.\coverlet\coverage.xml
+    - uses: codecov/codecov-action@v1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: .\coverlet\coverage.xml
+        flags: unittests
     - name: Upload dotnet test results
       uses: actions/upload-artifact@v2
       with:
